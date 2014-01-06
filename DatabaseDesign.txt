@@ -1,0 +1,57 @@
+SMACKDOWN QUIZ HEAD-TO-HEAD MULTIMEDIA FLASHCARDS 
+DATABASE PRELIM DESIGN
+---------------------------------
+Answers: PK, Card_PK, Answer_Text, Correct_Flag # when not multi-choice, all answers for a card will be Correct 
+
+Cards:  PK, 
+		Type_PK, Public_Flag, Multi_Choice_Flag, Player_PK, Question_Text, Question_img, Question_sound 
+	**should support multimedia questions eventually! 
+	**Also keep cards private or share.
+	**WAIT NO - Questions and Answers need to be stored separately. This lets us accept more than one possible
+		answer. ALSO in the future can let us do multiple-choice quizzes rather than just typed-response flashcards.
+	
+Decks: PK, Player_PK, Public_Flag, Type_PK, Description_text, Size_int
+
+Deck_Cards: Deck_PK, Card_PK
+
+Types: PK, Title, Description
+
+Tags: PK, Player_PK, Tag_Label
+
+Card_Tags: Card_PK, Tag_PK
+
+Deck_Tags: Deck_PK, Tag_PK
+
+Players (public persona possibly >1 per User): PK, User_PK, Type_PK, display_name, avatar_img, bio_text, is_moderator
+** will include a record for the Computer player for a single-player session
+
+Users (private person account information): PK, create_date, update_date, login, password, email, is_admin
+
+Matches: 	PK,
+			Match_Title,
+			Player1_PK, Player2_PK, 
+			Deck_Size,
+			Scoring_Mode, # score as you go or score only at end
+			Auto_Result_YN,
+			Start_Time, 
+			Player1_Time, Player2_Time, 
+			Player1_Score, Player2_Score
+
+Plays: PK, Match_PK, Player_PK, Seq, Responder_PK, Response_Text, Initial_ResultYN, Judgement_Override
+
+SINGLE-PLAYER FLASHCARD MODE:
+- can build and assign a deck, or have the computer build a deck given parameters
+	- parameters: deck size, tags any/all, Types, 
+		text only, visual yes/no, sound yes/no, use my cards only, use text answers flag, use multi-choice flag.
+- computer delivers the cards in random order, you answer. 
+- let's start by pre-populating Cards and Answers (text only! good grief!), and writing a web interface to pull cards, present
+	the question to the user (no user control yet, mind you!), and match the answer.  OK?  OK!
+
+LONG-TERM:
+- effectively what we have is a crowd-sourced knowledge testing system.  Can appoint some users moderators and have them
+	review questions, allow them to mark for deletion, to allow for crowd-policing, wikipedia-style. Or up/downvote,	for crowd-policing reddit-style.
+- shorter-term, can have a "flag as inappropriate" on public questions & decks. Questions & decks can be
+	forced private if they're inappropriate for all users.
+- cards and decks should have a "mark for removal" flag as well.  This would cause them to be hidden from
+	everything user-exposed, and would allow real deletion by query in the database (or admin interface)
+	
