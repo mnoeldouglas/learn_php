@@ -61,7 +61,7 @@
 	if (!$db_conn) {
 		echo '<p>Trouble connecting to the database.';
 	} else {
-		$query_result = pg_query($db_conn, 'select * from multi_out_test();');
+		$query_result = pg_query($db_conn, 'select * from generate_qa_pair();');
 		$question = pg_fetch_result($query_result, 0, 0);
 		$answer = pg_fetch_result($query_result, 0, 1);
 		$_SESSION['correct_answer'] = $answer;
