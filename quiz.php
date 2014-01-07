@@ -1,17 +1,21 @@
 <html>
 <head>
 	<title>Quiz System</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
+<div id="question_box">
 <h1>Quiz system prototype</h1>
 <?php
 	session_start();
 
 	$intro_text =
-		'<p>One day, this will evolve into SMACKDOWN, a competitive social quiz tool for students of
-		pretty much any topic to have fun and help each other study.
-		<p>To start with, though, here is this rather sad little PHP script. Gotta start somewhere.
-		<p><i>You must accept cookies to use this site.</i>';
+		'<p>One day, this will evolve into SMACKDOWN, a competitive social 
+		quiz tool for students of pretty much any topic to have fun and help 
+		each other study.
+		<p>To start with, though, here is this rather sad little PHP script. 
+		Gotta start somewhere.
+		<p><span class="important">You must accept cookies to use this site.</span>';
 	
 	$form_markup = '<form action="quiz.php" method="post">
 		<p>Your answer: <input type="text" name="user_answer" /></p>
@@ -24,7 +28,7 @@
 		// check answer against expected answer
 		if ($_POST['user_answer'] == $_SESSION['correct_answer'])
 		{
-			echo '<p>Correct!';
+			echo '<p><span class="congratulation">Correct!</span>';
 			$_SESSION['correct_count']++;
 			echo '<p>Try another one...';
 		}
@@ -39,7 +43,8 @@
 	else if (!isset($_SESSION['attempted_count']) and isset($_POST['user_answer']))
 	{
 		// form request has been submitted but no cookie for me
-		echo '<p><i>You must accept cookies. It is only waffer thin, monsieur.</i>';
+		echo '<p><span class="important">You must accept cookies. 
+			It is only waffer thin, monsieur.</span>';
 	}
 	else
 	{
@@ -50,7 +55,8 @@
 	}
 
 	// pull a new question and answer pair from the database
-	$connect_string = "host=localhost port=5432 dbname=Smackdown user=readonly password=readonly";
+	$connect_string = 
+		"host=localhost port=5432 dbname=Smackdown user=readonly password=readonly";
 	$db_conn = pg_connect($connect_string);
 	if (!$db_conn) {
 		echo '<p>Trouble connecting to the database.';
@@ -65,6 +71,6 @@
 	// get the user's response to the question
 	echo $form_markup;
 ?>
-
+</div>
 </body>
 </html>

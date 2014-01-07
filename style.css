@@ -1,0 +1,33 @@
+body 
+{
+	background: #eeeeee;
+    font-family: Verdana, serif;
+}
+
+#question_box
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	text-align: center;
+	background-color: #bbbbbb;
+	border: 2px solid #ff4f00;
+	border-radius: 25px;
+}
+
+h1 { font-family: Helvetica, sans-serif; }
+
+.submit input
+{
+	margin-left: 4.5em;
+}
+
+input
+{
+	color: #333333;
+	background: #fee3ad;
+	border: 1px solid #781351;
+}
+
+.congratulation { font-weight: bold; color: #ff4f00; }
+.important { font-style: italic; color: blue; }
