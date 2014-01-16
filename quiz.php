@@ -25,8 +25,13 @@
 	if (isset($_SESSION['attempted_count']) and isset($_POST['user_answer']))
 	{
 		$_SESSION['attempted_count']++; 
-		// check answer against expected answer
-		if ($_POST['user_answer'] == $_SESSION['correct_answer'])
+		// check answer against expected answer - clean up strings first,
+		// removing any excess whitespace in user answer and strip punctuation
+		// from both to compare.
+		$user_answer = trim(preg_replace('/\s\s+/', ' ', $_POST['user_answer']));
+		$user_answer = preg_replace('/[^a-z A-Z]+/', '', $user_answer);
+		$correct_answer = preg_replace('/[^a-z A-Z]+/', '', $_SESSION['correct_answer']); 	
+		if (strcasecmp( $user_answer, $correct_answer ) == 0 ) 
 		{
 			echo '<p><span class="congratulation">Correct!</span>';
 			$_SESSION['correct_count']++;
